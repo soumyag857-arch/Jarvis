@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.25rem;
+    --background: 0.07 0.025 240;
+    --foreground: 0.88 0.06 200;
+    --card: 0.1 0.03 240;
+    --card-foreground: 0.88 0.06 200;
+    --popover: 0.12 0.04 240;
+    --popover-foreground: 0.88 0.06 200;
+    --primary: 0.78 0.18 200;
+    --primary-foreground: 0.07 0.025 240;
+    --secondary: 0.55 0.22 250;
+    --secondary-foreground: 0.88 0.06 200;
+    --muted: 0.14 0.04 240;
+    --muted-foreground: 0.5 0.08 210;
+    --accent: 0.65 0.2 200;
+    --accent-foreground: 0.07 0.025 240;
+    --destructive: 0.62 0.24 15;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.25 0.1 210;
+    --input: 0.15 0.05 230;
+    --ring: 0.78 0.18 200;
+    --chart-1: 0.78 0.18 200;
+    --chart-2: 0.55 0.22 250;
+    --chart-3: 0.65 0.2 175;
+    --chart-4: 0.82 0.18 180;
+    --chart-5: 0.45 0.15 265;
+    --sidebar: 0.1 0.03 240;
+    --sidebar-foreground: 0.88 0.06 200;
+    --sidebar-primary: 0.78 0.18 200;
+    --sidebar-primary-foreground: 0.07 0.025 240;
+    --sidebar-accent: 0.14 0.04 240;
+    --sidebar-accent-foreground: 0.88 0.06 200;
+    --sidebar-border: 0.25 0.1 210;
+    --sidebar-ring: 0.78 0.18 200;
+    --neon-blue: oklch(0.78 0.18 200);
+    --neon-blue-dim: oklch(0.55 0.22 250);
+    --glow-sm: 0 0 8px oklch(0.78 0.18 200 / 0.6);
+    --glow-md: 0 0 16px oklch(0.78 0.18 200 / 0.7), 0 0 32px
+      oklch(0.78 0.18 200 / 0.3);
+    --glow-lg: 0 0 24px oklch(0.78 0.18 200 / 0.8), 0 0 48px
+      oklch(0.78 0.18 200 / 0.4), 0 0 80px oklch(0.78 0.18 200 / 0.2);
+    --panel-border: 1px solid oklch(0.35 0.14 210 / 0.6);
+    --panel-bg: oklch(0.1 0.03 240 / 0.85);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    background-color: oklch(0.07 0.025 240);
+    color: oklch(0.88 0.06 200);
+    font-family: "JetBrains Mono", monospace;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: oklch(0.1 0.03 240);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.35 0.14 210 / 0.7);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .glow-sm {
+    box-shadow: var(--glow-sm);
+  }
+  .glow-md {
+    box-shadow: var(--glow-md);
+  }
+  .glow-lg {
+    box-shadow: var(--glow-lg);
+  }
+  .text-glow {
+    text-shadow: 0 0 8px oklch(0.78 0.18 200 / 0.9);
+  }
+  .text-glow-lg {
+    text-shadow: 0 0 16px oklch(0.78 0.18 200 / 1), 0 0 32px
+      oklch(0.78 0.18 200 / 0.6);
+  }
+  .panel {
+    background: var(--panel-bg);
+    border: var(--panel-border);
+    backdrop-filter: blur(12px);
+  }
+  .hud-border {
+    position: relative;
+    border: 1px solid oklch(0.35 0.14 210 / 0.5);
+  }
+  .hud-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.18 200 / 0.4) 0%,
+      transparent 40%,
+      transparent 60%,
+      oklch(0.78 0.18 200 / 0.2) 100%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      transparent,
+      oklch(0.78 0.18 200 / 0.15),
+      transparent
+    );
+    animation: scanline 4s linear infinite;
+    pointer-events: none;
+  }
+  .grid-overlay {
+    background-image: linear-gradient(
+        oklch(0.78 0.18 200 / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, oklch(0.78 0.18 200 / 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 200%;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes radar-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes typing-cursor {
+  0%,
+  100% {
+    border-color: oklch(0.78 0.18 200);
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px oklch(0.78 0.18 200 / 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px oklch(0.78 0.18 200 / 0.9), 0 0 40px
+      oklch(0.78 0.18 200 / 0.4);
+  }
+}
+
+@keyframes wave-bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hex-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+.animate-radar {
+  animation: radar-spin 3s linear infinite;
+}
+.animate-blink {
+  animation: blink 1.5s ease-in-out infinite;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.animate-float-in {
+  animation: float-in 0.4s ease-out forwards;
+}
+.animate-hex-rotate {
+  animation: hex-rotate 8s linear infinite;
+}
+
+.wave-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: oklch(0.78 0.18 200);
+  animation: wave-bar 0.6s ease-in-out infinite;
+}
+.wave-bar:nth-child(1) {
+  animation-delay: 0s;
+}
+.wave-bar:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.wave-bar:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.wave-bar:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.wave-bar:nth-child(5) {
+  animation-delay: 0.32s;
+}
+.wave-bar:nth-child(6) {
+  animation-delay: 0.4s;
+}
+.wave-bar:nth-child(7) {
+  animation-delay: 0.48s;
+}
